@@ -1,3 +1,8 @@
 EJS
 ⇒ テンプレートエンジン
 ⇒ インストールコマンド：npm install -g ejs
+
+EJSが見つからない場合
+コマンド: npm init
+コマンド: npm install --save ejs
+
