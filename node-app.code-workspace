@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "..\\mini_board"
+		},
+		{
+			"path": "..\\express-app"
 		}
 	],
 	"settings": {}
