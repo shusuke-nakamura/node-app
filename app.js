@@ -35,12 +35,7 @@ function getFromClient(request, response) {
   }
 }
 
-var data = {
-  'Taro': '09-999-999',
-  'Hanako': '080-888-888',
-  'Sachiko': '070-777-777',
-  'Ichiro': '060-666-666'
-};
+var data = {msg: 'no message...'};
 
 var data2 = {
   'Taro': ['taro@yamada', '09-999-999', 'Tokyo'],
@@ -50,14 +45,32 @@ var data2 = {
 }
 
 function response_index(request, response) {
-  var msg = "これはIndexページです。";
+  // POSTアクセス時の処理
+  if (request.method == 'POST') {
+    var body = '';
+
+    // データ受信のイベント処理
+    request.on('data', (data) => {
+      body += data;
+    });
+
+    request.on('end', () => {
+      data = qs.parse(body);
+      write_index(request, response);
+    });
+  } else {
+    write_index(request, response);
+  }
+}
+
+function write_index(request, response) {
+  var msg = "※伝言を表示します。";
   var content = ejs.render(index_page, {
     title: "Index",
     content: msg,
     data: data,
-    filename: 'data_item'
   });
-  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.writeHead(200, {'Content-Type': 'text/html'});
   response.write(content);
   response.end();
 }
